@@ -1,0 +1,34 @@
+Package: cfhttr
+Type: Package
+Title: Workaround Cloudflare Anti-DDoS Protection
+Version: 0.1.0
+Date: 2017-12-10
+Authors@R: c(
+    person("Bob", "Rudis", email = "bob@rud.is", role = c("aut", "cre"), 
+           comment = c(ORCID = "0000-0001-5670-2640"))
+  )
+Author: Bob Rudis (bob@rud.is)
+Maintainer: Bob Rudis <bob@rud.is>
+Description: Some sites use Cloudflare's anti-DDoS protection to, well, avoid being 
+    DDoS'd. However, many of these sites also host files that they intended for automated
+    download workflows and often forget to exclude those from the heavy-handed anti-DDoS,
+    javascript + human-required settings. Cloudflare employs a few different anti-DDoS 
+    protection schemes. One involves a 503 HTTP response followed by the submission of a 
+    "challenge" that was solved via a bit of javascript on the page. That's what this 
+    pacakge handles. If you encounter other Cloudflare anti-DDoS protection schemes 
+    (especially the captcha one), then this won't work.
+URL: https://github.com/hrbrmstr/cfhttr
+BugReports: https://github.com/hrbrmstr/cfhttr/issues
+License: AGPL
+Suggests:
+    testthat,
+    covr
+Depends:
+    R (>= 3.2.0)
+Imports:
+    urltools,
+    stringi,
+    rvest,
+    httr,
+    V8
+RoxygenNote: 6.0.1

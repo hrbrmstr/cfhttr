@@ -1,0 +1,49 @@
+---
+output: rmarkdown::github_document
+---
+
+# cfhttr
+
+Workaround Cloudflare Anti-DDoS Protection
+
+## Description
+
+Some sites use Cloudflare's anti-DDoS protection to, well, avoid being DDoS'd.
+
+However, many of these sites also host files that they intended for automated download workflows and often forget to exclude those from the heavy-handed anti-DDoS, javascript + human-required settings.
+
+Cloudflare employs a few different anti-DDoS protection schemes. One involves a 503 HTTP response followed by the submission of a "challenge" that was solved via a bit of javascript on the page. _That's what this pacakge handles._ If you encounter other Cloudflare anti-DDoS protection schemes (especially the captcha one), then this won't work.
+
+## NOTE
+
+If this ceases to work it likely means that Cloudflare changed the challenge code. Please [file an issue](https://github.com/hrbrmstr/cfhttr/issues) so I can redo the workaround.
+
+## What's Inside The Tin
+
+The following functions are implemented:
+
+- `cf_GET`: Cloudflare bypass version of `httr::GET()`
+
+## Installation
+
+```{r eval=FALSE}
+devtools::install_github("hrbrmstr/cfhttr")
+```
+
+```{r message=FALSE, warning=FALSE, error=FALSE, include=FALSE}
+options(width=120)
+```
+
+## Usage
+
+```{r message=FALSE, warning=FALSE, error=FALSE}
+library(cfhttr)
+
+# current verison
+packageVersion("cfhttr")
+```
+
+```{r}
+res <- cf_GET("https://www.bitmarket.pl/graphs/BTCPLN/90m.json")
+str(httr::content(res, as="parsed"))
+```
